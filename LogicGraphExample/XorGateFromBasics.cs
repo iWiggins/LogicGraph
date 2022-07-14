@@ -28,7 +28,7 @@ namespace LogicGraphExample
             int notGate0 = graph.CreateGate(Gates.Gate.NOT);
             int notGate1 = graph.CreateGate(Gates.Gate.NOT);
 
-            // Create and inverter for each input.
+            // Create an inverter for each input.
             graph.ConnectInputToGate(0, notGate0);
             graph.ConnectInputToGate(1, notGate1);
 

@@ -47,7 +47,7 @@
             {
                 Invalidate();
                 if (input != null) input.AsNode().RemoveOutput(this);
-                foreach(var gate in outputs)
+                foreach (var gate in outputs)
                 {
                     gate.AsNode().RemoveInput(this);
                 }
@@ -91,16 +91,16 @@
             protected override bool OnIsIndirectInput(GateBase gate)
             {
                 if (input == null) return false;
-                else if(OnIsDirectInput(gate)) return true;
+                else if (OnIsDirectInput(gate)) return true;
                 else return input.AsNode().IsDirectInput(gate);
             }
 
             protected override bool OnIsIndirectOutput(GateBase gate)
             {
-                if(OnIsDirectOutput(gate)) return true;
+                if (OnIsDirectOutput(gate)) return true;
                 else
                 {
-                    foreach(var output in outputs)
+                    foreach (var output in outputs)
                     {
                         if (output.AsNode().IsIndirectOutpt(gate)) return true;
                     }
@@ -123,7 +123,7 @@
 
             protected override bool OnRemoveOutput(GateBase gate)
             {
-                if(gate == this) return false;
+                if (gate == this) return false;
                 if (!outputs.Contains(gate)) return false;
                 else
                 {
@@ -178,7 +178,7 @@
 
             public override void Disconnect()
             {
-                foreach(var gate in outputs)
+                foreach (var gate in outputs)
                 {
                     gate.AsNode().RemoveInput(this);
                 }
@@ -188,7 +188,7 @@
             public override void Invalidate()
             {
                 base.Invalidate();
-                foreach(var output in outputs)
+                foreach (var output in outputs)
                 {
                     output.Invalidate();
                 }
@@ -207,7 +207,7 @@
 
             protected override bool OnAddOutput(GateBase gate)
             {
-                if(gate == this) return false;
+                if (gate == this) return false;
                 return outputs.Add(gate);
             }
 
@@ -226,7 +226,7 @@
 
                 else
                 {
-                    foreach(var output in outputs)
+                    foreach (var output in outputs)
                     {
                         if (output.AsNode().IsIndirectOutpt(gate)) return true;
                     }

@@ -20,7 +20,7 @@
                     var input = InputEnumerator;
                     while (input.MoveNext())
                     {
-                        switch(input.Current.Value)
+                        switch (input.Current.Value)
                         {
                             case 0: value = 0; break;
                             case 1: break;
@@ -28,7 +28,7 @@
                             default: return -2;
                         }
                     }
-                    
+
                     return value;
                 }
             }

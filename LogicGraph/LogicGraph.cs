@@ -44,8 +44,7 @@
         /// </returns>
         public bool DestroyGate(int key)
         {
-            Gates.GateBase? gate;
-            if (gateMap.TryGetValue(key, out gate))
+            if (gateMap.TryGetValue(key, out Gates.GateBase? gate))
             {
                 if (gate is Gates.IN) return false;
                 if (gate is Gates.OUT) return false;
@@ -74,10 +73,9 @@
         /// </remarks>
         public bool ConnectGates(int firstKey, int secondKey)
         {
-            Gates.GateBase? firstGate, secondGate;
 
-            if (!gateMap.TryGetValue(firstKey, out firstGate)) return false;
-            if (!gateMap.TryGetValue(secondKey, out secondGate)) return false;
+            if (!gateMap.TryGetValue(firstKey, out Gates.GateBase? firstGate)) return false;
+            if (!gateMap.TryGetValue(secondKey, out Gates.GateBase? secondGate)) return false;
 
             return firstGate.Connect(secondGate);
         }
@@ -103,10 +101,9 @@
         /// </remarks>
         public bool DisconnectGates(int firstKey, int secondKey)
         {
-            Gates.GateBase? firstGate, secondGate;
-            
-            if (!gateMap.TryGetValue(firstKey, out firstGate)) return false;
-            if(!gateMap.TryGetValue(secondKey, out secondGate)) return false;
+
+            if (!gateMap.TryGetValue(firstKey, out Gates.GateBase? firstGate)) return false;
+            if (!gateMap.TryGetValue(secondKey, out Gates.GateBase? secondGate)) return false;
 
             return firstGate.Disconnect(secondGate);
         }
@@ -133,7 +130,7 @@
         {
             if (inputValues.Length != inputs.Count) return false;
 
-            for(int i = 0; i < inputValues.Length; ++i)
+            for (int i = 0; i < inputValues.Length; ++i)
             {
                 inputs[i].SetValue(inputValues[i]);
             }
@@ -141,9 +138,20 @@
             return true;
         }
 
-
+        /// <summary>
+        /// Returns the value of the indexed output.
+        /// </summary>
+        /// <param name="output">Index of the output to value-check.</param>
+        /// <returns>
+        /// 0: False
+        /// 1: True
+        /// -1: No value
+        /// -2: Error
+        /// -3: Index out of range
+        /// </returns>
         public int GetOutputValue(int output)
         {
+            if (output < 0 || output >= outputs.Count) return -3;
             return outputs[output].Value;
         }
 
@@ -160,8 +168,7 @@
         /// </returns>
         public int GetValue(int key)
         {
-            Gates.GateBase? gate;
-            if (!gateMap.TryGetValue(key, out gate)) return -2;
+            if (!gateMap.TryGetValue(key, out Gates.GateBase? gate)) return -2;
             else return gate.Value;
         }
 
@@ -192,13 +199,12 @@
         /// </returns>
         public bool ConnectInputToGate(int input, int key)
         {
-            if(input < 0 || input >= inputs.Count) return false;
+            if (input < 0 || input >= inputs.Count) return false;
 
             var inputGate = inputs[input];
 
-            Gates.GateBase? gate;
 
-            if (!gateMap.TryGetValue(key, out gate)) return false;
+            if (!gateMap.TryGetValue(key, out Gates.GateBase? gate)) return false;
 
             return inputGate.Connect(gate!);
         }
@@ -218,9 +224,8 @@
 
             var outputGate = outputs[output];
 
-            Gates.GateBase? gate;
 
-            if (!gateMap.TryGetValue(key, out gate)) return false;
+            if (!gateMap.TryGetValue(key, out Gates.GateBase? gate)) return false;
 
             return gate.Connect(outputGate);
         }
@@ -243,7 +248,7 @@
                 "inputCount must be at least 1.");
 
             if (outputCount <= 0) throw new ArgumentOutOfRangeException(
-                nameof (outputCount),
+                nameof(outputCount),
                 "outputCount must be at least 1.");
 
             gateMap = new Dictionary<int, Gates.GateBase>();
@@ -251,14 +256,14 @@
             inputs = new(inputCount);
             outputs = new(outputCount);
 
-            for(int i = 0; i < inputCount; ++i)
+            for (int i = 0; i < inputCount; ++i)
             {
                 Gates.IN input = new();
                 gateMap[input.GetHashCode()] = input;
                 inputs.Add(input);
             }
 
-            for(int i = 0; i < outputCount; ++i)
+            for (int i = 0; i < outputCount; ++i)
             {
                 Gates.OUT output = new();
                 gateMap[output.GetHashCode()] = output;

@@ -116,7 +116,7 @@
         /// <summary>
         /// A representation of a logic gate.
         /// </summary>
-        internal abstract class GateBase: IGateNode
+        internal abstract class GateBase : IGateNode
         {
             #region Public interface
             /// <summary>
@@ -303,19 +303,19 @@
             {
                 if (this == gate) return false;
                 if (this.OnIsIndirectInput(gate)) return false;
-                if(!(gate as IGateNode).AddInput(this)) return false;
+                if (!(gate as IGateNode).AddInput(this)) return false;
                 return this.OnAddOutput(gate);
             }
 
             public override bool Disconnect(GateBase gate)
             {
-                if(outputs.Contains(gate))
+                if (outputs.Contains(gate))
                 {
                     (gate as IGateNode).RemoveInput(this);
                     outputs.Remove(gate);
                     return true;
                 }
-                else if(inputs.Contains(gate))
+                else if (inputs.Contains(gate))
                 {
                     (gate as IGateNode).RemoveOutput(this);
                     inputs.Remove(gate);
@@ -337,7 +337,7 @@
                 }
                 inputs.Clear();
 
-                foreach(var gate in outputs)
+                foreach (var gate in outputs)
                 {
                     (gate as IGateNode).RemoveInput(this);
                 }
@@ -347,7 +347,7 @@
             public override void Invalidate()
             {
                 base.Invalidate();
-                foreach(var output in outputs)
+                foreach (var output in outputs)
                 {
                     output.Invalidate();
                 }
@@ -364,7 +364,7 @@
             protected override bool OnAddInput(GateBase input) =>
                 inputs.Add(input);
 
-            protected override bool OnAddOutput(GateBase output) => 
+            protected override bool OnAddOutput(GateBase output) =>
                 outputs.Add(output);
 
             protected override bool OnRemoveInput(GateBase input) =>
@@ -384,7 +384,7 @@
                 if (outputs.Contains(gate)) return true;
                 else
                 {
-                    foreach(var output in outputs)
+                    foreach (var output in outputs)
                     {
                         if (output.AsNode().IsIndirectOutpt(gate)) return true;
                     }
@@ -399,7 +399,7 @@
 
                 else
                 {
-                    foreach(var input in inputs)
+                    foreach (var input in inputs)
                     {
                         if (input.AsNode().IsIndirectInput(gate)) return true;
                     }
