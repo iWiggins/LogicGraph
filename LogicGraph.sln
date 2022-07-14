@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicGraphExample", "LogicGraphExample\LogicGraphExample.csproj", "{A21E252F-05F0-425E-BE39-5292A488ABF6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{EB36AF24-5DE2-4C05-A03D-76F7FB9F0573}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB36AF24-5DE2-4C05-A03D-76F7FB9F0573}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB36AF24-5DE2-4C05-A03D-76F7FB9F0573}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A21E252F-05F0-425E-BE39-5292A488ABF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A21E252F-05F0-425E-BE39-5292A488ABF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A21E252F-05F0-425E-BE39-5292A488ABF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A21E252F-05F0-425E-BE39-5292A488ABF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

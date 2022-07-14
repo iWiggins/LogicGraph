@@ -48,11 +48,11 @@ namespace LogicGraphTests
 
             Assert.AreEqual(-1, graph.GetValue(key));
 
-            graph.FeedInput(0);
+            graph.FeedInputs(0);
 
             Assert.AreEqual(0, graph.GetValue(key));
 
-            graph.FeedInput(1);
+            graph.FeedInputs(1);
 
             Assert.AreEqual(1, graph.GetValue(key));
         }

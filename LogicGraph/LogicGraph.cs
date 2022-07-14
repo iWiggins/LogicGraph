@@ -129,7 +129,7 @@
         /// All other inputs will result in error codes propagating through
         /// the graph.
         /// </remarks>
-        public bool FeedInputs(int[] inputValues)
+        public bool FeedInputs(params int[] inputValues)
         {
             if (inputValues.Length != inputs.Count) return false;
 
@@ -139,6 +139,12 @@
             }
 
             return true;
+        }
+
+
+        public int GetOutputValue(int output)
+        {
+            return outputs[output].Value;
         }
 
         /// <summary>
@@ -174,6 +180,50 @@
         /// <returns>The list of integer keys.</returns>
         public List<int> GetOutputKeys() =>
             outputs.ConvertAll(output => output.GetHashCode());
+
+        /// <summary>
+        /// Connects the indexed input to the gate with the given key.
+        /// </summary>
+        /// <param name="input">Index of the input to connect.</param>
+        /// <param name="key">Key of the gate to connect.</param>
+        /// <returns>
+        /// True: Success
+        /// False: Failure
+        /// </returns>
+        public bool ConnectInputToGate(int input, int key)
+        {
+            if(input < 0 || input >= inputs.Count) return false;
+
+            var inputGate = inputs[input];
+
+            Gates.GateBase? gate;
+
+            if (!gateMap.TryGetValue(key, out gate)) return false;
+
+            return inputGate.Connect(gate!);
+        }
+
+        /// <summary>
+        /// Connects the gate with the given key to the indexed output.
+        /// </summary>
+        /// <param name="output">Index of the output to connect.</param>
+        /// <param name="key">Key of the gate to connect.</param>
+        /// <returns>
+        /// True: Success
+        /// False: Failure
+        /// </returns>
+        public bool ConnectGateToOutput(int output, int key)
+        {
+            if (output < 0 || output >= outputs.Count) return false;
+
+            var outputGate = outputs[output];
+
+            Gates.GateBase? gate;
+
+            if (!gateMap.TryGetValue(key, out gate)) return false;
+
+            return gate.Connect(outputGate);
+        }
 
         /// <summary>
         /// Constructs a logic graph.
