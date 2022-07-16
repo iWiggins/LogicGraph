@@ -317,7 +317,6 @@
             protected override bool OnRemoveInput(GateBase gate)
             {
                 if (input != gate) return false;
-                if (!gate.AsNode().RemoveOutput(this)) return false;
                 else
                 {
                     input = null;
