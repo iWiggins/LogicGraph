@@ -139,6 +139,20 @@
         }
 
         /// <summary>
+        /// Sets the ordered values of the input nodes to the ordered bits of an integer.
+        /// </summary>
+        /// <param name="instr">An integer representing a string of bits.</param>
+        public void FeedInputString(int instr)
+        {
+            const int MASK = 1;
+            for(int i = 0; i < inputs.Count; ++i)
+            {
+                int input = (instr & ( MASK << i)) >> i;
+                inputs[i].SetValue(input);
+            }
+        }
+
+        /// <summary>
         /// Returns the value of the indexed output.
         /// </summary>
         /// <param name="output">Index of the output to value-check.</param>
