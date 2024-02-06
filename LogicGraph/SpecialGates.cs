@@ -68,6 +68,7 @@
                 if (input == gate) return false;
                 if (OnIsIndirectOutput(gate)) return false;
                 input = gate;
+                Invalidate();
                 return true;
             }
 
@@ -142,6 +143,15 @@
                     -1 => -1,
                     _ => -2
                 };
+            }
+
+            public override void Invalidate()
+            {
+                base.Invalidate();
+                foreach(var output in outputs)
+                {
+                    output.Invalidate();
+                }
             }
 
             private GateBase? input;
@@ -238,7 +248,7 @@
                 false;
 
             protected override bool OnRemoveOutput(GateBase gate) =>
-                false;
+                outputs.Remove(gate);
 
             private int _value;
             private readonly HashSet<GateBase> outputs;
@@ -291,6 +301,7 @@
                 else
                 {
                     input = gate;
+                    Invalidate();
                     return true;
                 }
             }

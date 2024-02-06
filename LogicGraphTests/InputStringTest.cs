@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LogicGraphTests
+﻿namespace LogicGraphTests
 {
     [TestClass]
     public class InputStringTest
@@ -32,7 +26,7 @@ namespace LogicGraphTests
                 0, // 111 => 0
             };
 
-            for(int i = 000; i <= 0b111; ++i)
+            for(int i = 0b000; i <= 0b111; ++i)
             {
                 graph.FeedInputString(i);
                 int expected = correctResults[i];

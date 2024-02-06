@@ -361,8 +361,15 @@
             }
 
             #region GateBase implementation
-            protected override bool OnAddInput(GateBase input) =>
-                inputs.Add(input);
+            protected override bool OnAddInput(GateBase input)
+            {
+                if (inputs.Add(input))
+                {
+                    Invalidate();
+                    return true;
+                }
+                else return false;
+            }
 
             protected override bool OnAddOutput(GateBase output) =>
                 outputs.Add(output);

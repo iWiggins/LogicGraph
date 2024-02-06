@@ -56,5 +56,47 @@ namespace LogicGraphTests
 
             Assert.AreEqual(1, graph.GetValue(key));
         }
+
+        [TestMethod]
+        public void ConnectingGateToGraphCalculatesItsValue()
+        {
+            GateGraph graph = new(2, 1);
+
+            var inputs = graph.GetInputKeys();
+
+            graph.FeedInputs(0, 1);
+
+            var andGate = graph.CreateGate(Gates.Gate.AND);
+
+            graph.ConnectGates(inputs[1], andGate);
+
+            var andValue = graph.GetValue(andGate);
+
+            Assert.AreEqual(1, andValue);
+        }
+
+        [TestMethod]
+        public void CanGetIndexedOutputValue()
+        {
+            GateGraph graph = new(2, 1);
+
+            var inputs = graph.GetInputKeys();
+            var outputs = graph.GetOutputKeys();
+
+            graph.FeedInputs(1, 1);
+
+            var notGate = graph.CreateGate(Gates.Gate.NOT);
+
+            graph.ConnectGates(inputs[0], notGate);
+            graph.ConnectGates(notGate, outputs[0]);
+
+            var notValue = graph.GetValue(notGate);
+
+            var outValueK = graph.GetValue(outputs[0]);
+
+            var outValue = graph.GetOutputValue(0);
+
+            Assert.AreEqual(notValue, outValueK);
+        }
     }
 }
