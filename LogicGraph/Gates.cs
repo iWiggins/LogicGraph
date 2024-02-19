@@ -309,6 +309,8 @@
 
             public override bool Disconnect(GateBase gate)
             {
+                Invalidate();
+
                 if (outputs.Contains(gate))
                 {
                     (gate as IGateNode).RemoveInput(this);
@@ -374,8 +376,16 @@
             protected override bool OnAddOutput(GateBase output) =>
                 outputs.Add(output);
 
-            protected override bool OnRemoveInput(GateBase input) =>
-                inputs.Remove(input);
+            protected override bool OnRemoveInput(GateBase input)
+            {
+                if (inputs.Remove(input))
+                {
+                    Invalidate();
+                    return true;
+                }
+                else return false;
+
+            }
 
             protected override bool OnRemoveOutput(GateBase output) =>
                 outputs.Remove(output);
