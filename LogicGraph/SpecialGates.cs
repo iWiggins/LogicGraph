@@ -28,6 +28,8 @@
 
             public override bool Disconnect(GateBase gate)
             {
+                Invalidate();
+
                 if (outputs.Contains(gate))
                 {
                     gate.AsNode().RemoveInput(this);
@@ -182,6 +184,7 @@
 
             public override bool Disconnect(GateBase gate)
             {
+                Invalidate();
                 if (!gate.AsNode().RemoveInput(this)) return false;
                 return outputs.Remove(gate);
             }
